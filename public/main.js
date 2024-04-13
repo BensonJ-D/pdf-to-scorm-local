@@ -6,6 +6,7 @@ var zip = undefined;
 var supported = ((window.File && window.FileList && window.FileReader) && (new XMLHttpRequest()).upload);
 var filename = "";
 var dragHandler = {};
+var packageZip = undefined;
 
 // set up drag and drop to read file, prevent internal drag
 if (supported) {
@@ -64,19 +65,24 @@ function process(ab, name) {
 
 	filename = name;
 
+	console.log("Received file: ", filename)
+	if(filename == 'package.zip') {
+		console.log("loading ab", ab)
+		packageZip = ab		
+		document.querySelector('p[id="package-prompt"]').textContent = "ZIP File loaded."
+		document.querySelector('div[id="package-dropzone"]').style.display = "none"
+		return
+	}
+
 	// load the zip package
-	fetch('package.zip')
-
-		// then get the array buffer
-		.then(function(response) {
-			return response.arrayBuffer();
-		})
-
-		// then load the zip
-		.then(function(ab) {
-			return zip.loadAsync(ab);
-		})
-
+	if(packageZip == undefined) {
+		console.log("Package.zip is undefined, oh no!")
+		return;
+	}
+	
+	console.log("Loading pdf")
+	
+	zip.loadAsync(packageZip)
 		// make sure we don't have the __MACOS folder
 		.then(function(obj) {
 			return obj.remove("__MACOSX");
@@ -145,6 +151,7 @@ function download(package) {
 
 // event listeners
 document.addEventListener('DOMContentLoaded', main);
-document.querySelector('input[type="file"]').addEventListener('change', dragHandler.UploadFile);
+document.querySelector('input[id="package"]').addEventListener('change', dragHandler.UploadFile);
+document.querySelector('input[id="pdf"]').addEventListener('change', dragHandler.UploadFile);
 
 // um, yeah, that's the whole app.

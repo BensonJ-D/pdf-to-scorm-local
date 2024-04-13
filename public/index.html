@@ -26,21 +26,12 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/css/uikit.min.css" />
 	<link rel="stylesheet" href="style.css" />
 
-	<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=es5%2CElement.prototype.classList%2CArrayBuffer%2CDocument%2CString.prototype.replaceAll&flags=gated"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2CElement.prototype.classList%2CArrayBuffer%2CDocument%2CString.prototype.replaceAll&flags=gated"></script>
 	<script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit-icons.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.0.2/jszip-utils.min.js" async="true"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js" async="true"></script>
-
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y5EMVRZ54"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'G-1Y5EMVRZ54');
-	</script>
 </head>
 <body>
 
@@ -50,11 +41,18 @@
 			<p><img src="logo.svg" class="uk-width-1-3@m uk-width-1-2@s"></p>
 			<h1>Convert PDF files to SCORM</h1>
 			<p>No options. Completion on viewing last page. Based on open source code.</p>
+			<div class="js-upload uk-placeholder uk-text-center package">
+				<p id="package-prompt">In order to run, please load 'package.zip' from the public directory first.</p>
+			    <div uk-form-custom id="package-dropzone">
+			        <input type="file" accept=".zip" id="package">
+			        <span class="uk-link">select one</span>
+			    </div>
+			</div>
 			<div class="js-upload uk-placeholder uk-text-center">
 			    <span uk-icon="icon: cloud-upload"></span>
 			    <span class="uk-text-middle">Drop your PDF here or</span>
 			    <div uk-form-custom>
-			        <input type="file" accept=".pdf">
+			        <input type="file" accept=".pdf" id="pdf">
 			        <span class="uk-link">select one</span>
 			    </div>
 			</div>
